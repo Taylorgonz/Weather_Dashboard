@@ -8,13 +8,22 @@ console.log(cityInput)
 console.log(stateInput)
 $(".search").on("click", function(event) {
     event.preventDefault();
-    let currentWeatherURl= "api.openweathermap.org/data/2.5/weather?q=" + cityInput +"," + stateInput + "&appid=" + myKey + "";
-    let savedCityState = "" + cityInput.val() + ", " + stateInput.val() + "";
+    let currentWeatherURL= "api.openweathermap.org/data/2.5/weather?q=" + cityInput.val().trim() +"," + stateInput.val().trim() + "&appid=" + myKey + "";
+    let savedCityState = "" + cityInput.val().trim() + ", " + stateInput.val().trim() + "";
     savedCities.push(savedCityState);
+
+    $.get(currentWeatherURL).then( function(response) {
+      console.log(response);
+    })
+
     renderButtons();
+    console.log(savedCities)
 })
 
 
+ function saveButtons() {
+
+ }
 // render button function
 function renderButtons() {
     $('.saved-buttons').empty();
