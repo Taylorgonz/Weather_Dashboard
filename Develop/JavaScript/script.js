@@ -7,7 +7,8 @@ let buttonArray =  JSON.parse(localStorage['savedCities'] || "[]");
 let id = 0;
 
 // listening for search button slick
-console.log(cityInput)
+
+
 $(document).ready(function () {
   renderButtons();
 
@@ -54,12 +55,11 @@ $(document).ready(function () {
       let weatherDisplay = $('<div class="card">')
       let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const city = $('<h3>').text(response.name);
-      const icon = $('<img>').attr("src", response.weather.icon);
+      const icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $('<p>').text("Temperature: " + tempF);
       const humidity= $('<p>').text("Humdity: " + response.main.humidity);
       const wind = $('<p>').text("Wind Speed : " + response.wind.speed);
-
-      weatherDisplay.append(city, temp, humidity, wind)
+      weatherDisplay.append(city, icon, temp, humidity, wind)
       $('.todays-weather').prepend(weatherDisplay);
     });
 
@@ -114,6 +114,7 @@ $(document).ready(function () {
     e.preventDefault();
     $(".saved-buttons").empty();
     $(".clear-button").empty();
+    $("todays-weather").empty();
     window.localStorage.clear();
 
   })
