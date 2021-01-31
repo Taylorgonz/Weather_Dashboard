@@ -1,26 +1,25 @@
 const currentWeather = `api.openweathermap.org/data/2.5/weather?q={city name},{state code}&appid={API key}`;
 const fiveDay = `api.openweathermap.org/data/2.5/forecast?q={city name},{state code}&appid={API key}`;
 const myKey = "9a10739234e04a70af0f9f8db26046ea";
-let cityInput = $(".city-value");
-let stateInput = $(".state-value");
+let cityInput = $("#city-value");
+let stateInput = $("#state-value");
 let buttonArray =  JSON.parse(localStorage['savedCities'] || "[]");
+let id = 0;
 
 // listening for search button slick
-
+console.log(cityInput)
 $(document).ready(function () {
-  search();
   renderButtons();
 
-  function search() {
-    $(document).on("click", "button.search", function (event) {
+    $(document).on("click", "#search", function(event) {
       event.preventDefault();
-      
-      console.log(cityInput.val());
+
+      console.log(cityInput);
       if (cityInput.val() !== "" && stateInput.val() !== "") {
         // retrieving value from city and state inputs
         
-        cityInput = cityInput.val().trim();
-        stateInput = stateInput.val().trim();
+        cityInput = cityInput.val();
+        stateInput = stateInput.val();
 
         storedCityState = {
           city: cityInput,
@@ -29,21 +28,25 @@ $(document).ready(function () {
 
         buttonArray.push(storedCityState);
         localStorage.setItem("savedCities", JSON.stringify(buttonArray));
-        weatherCall();
 
+        weatherCall();
+        renderButtons();
         };
 
         // creates input buttons
-        renderButtons();
-        console.log(buttonArray);
+        
+        $(".search-input").empty();
+        $(".search-input").append('<button type="button" class="search button is-primary">Search</button><input class="city-value input is-primary is-one-fifth column" type="text" placeholder="City"/><input class="state-value input is-primary is-one-fifth column" type="text" placeholder="State"/>');
         
       
     });
-  }
+ 
 
   // function for ajax call for current weather
   function weatherCall() {
 
+
+    
     $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "," + stateInput +"&appid=" +myKey +"").then(function (response) {
       console.log(response);
 
@@ -58,12 +61,33 @@ $(document).ready(function () {
 
       weatherDisplay.append(city, temp, humidity, wind)
       $('.todays-weather').prepend(weatherDisplay);
-      
-    })
-    search();
+    });
+
+  
   };
 
-  function saveButtons() {}
+  // function to have savedbuttons call ajax request
+  $('.saved-locations').on("click",  function (e) {
+    e.preventDefault();
+    let buttonInput = JSON.parse(localStorage.getItem("savedCities"))
+    // for (let i = 0 ; i < buttonInput.length; i ++) {
+
+    //   cityInput= buttonInput[i].city;
+    //   stateInput = buttonInput[i].state;
+    // }
+
+    let i = $(this).attr("id");
+    cityInput= buttonInput[i].city;
+    stateInput = buttonInput[i].state;
+    // stateInput = $(this).buttonInput[i].state;
+    
+    console.log(e)
+    
+    weatherCall();
+    $('.todays-weather').empty();
+  });
+
+
   // render button function
   function renderButtons() {
     $(".saved-buttons").empty();
@@ -80,7 +104,7 @@ $(document).ready(function () {
 
     for (let i = 0; i < buttonInput.length; i++) {
       let button = $("<button>");
-      button.addClass("saved-locations button is-primary").text("" + buttonInput[i].city + ", " + buttonInput[i].state + "");
+      button.attr("id",[i]).addClass("saved-locations button is-primary").text("" + buttonInput[i].city + ", " + buttonInput[i].state + "");
       console.log(button);
       $(".saved-buttons").append(button);
     }
