@@ -8,3 +8,9 @@ body{
     margin-top: 20px;
 
 }
+
+.saved-buttons {
+    text-align: left;
+    margin: 10px;
+    display: block;
+}
