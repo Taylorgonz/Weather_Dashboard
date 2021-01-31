@@ -44,8 +44,10 @@ $(document).ready(function () {
   // function for ajax call for current weather
   function weatherCall() {
 
-    $.get("http://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "," + stateInput +"&appid=" +myKey +"").then(function (response) {
+    $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "," + stateInput +"&appid=" +myKey +"").then(function (response) {
       console.log(response);
+
+
       let weatherDisplay = $('<div class="card">')
       let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const city = $('<h3>').text(response.name);
