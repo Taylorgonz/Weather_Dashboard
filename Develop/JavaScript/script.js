@@ -11,7 +11,8 @@ let id = 0;
 
 $(document).ready(function () {
   renderButtons();
-
+search();
+  function search() {
     $(document).on("click", "#search", function(event) {
       event.preventDefault();
 
@@ -41,6 +42,7 @@ $(document).ready(function () {
         
       
     });
+  }
  
 
   // function for ajax call for current weather
@@ -48,19 +50,21 @@ $(document).ready(function () {
 
 
     
-    $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "," + stateInput +"&appid=" +myKey +"").then(function (response) {
+    $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&" + stateInput +"&appid=" +myKey +"").then(function (response) {
       console.log(response);
 
 
-      let weatherDisplay = $('<div class="card">')
+      let weatherDisplay = $('<div class="card-content">')
       let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
-      const city = $('<h3>').text(response.name);
+     
+      const city = $('<h2>').text(response.name);
       const icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $('<p>').text("Temperature: " + tempF);
       const humidity= $('<p>').text("Humdity: " + response.main.humidity);
       const wind = $('<p>').text("Wind Speed : " + response.wind.speed);
       weatherDisplay.append(city, icon, temp, humidity, wind)
-      $('.todays-weather').prepend(weatherDisplay);
+      $('.todays-weather').append(weatherDisplay);
+      $(document).ajaxSuccess(search());
     });
 
   
@@ -91,7 +95,7 @@ $(document).ready(function () {
   // render button function
   function renderButtons() {
     $(".saved-buttons").empty();
-    $(".clear-buttons").empty();
+    $(".clear-button").empty();
     let buttonInput = JSON.parse(localStorage.getItem("savedCities"));
     console.log(buttonInput);
     if (buttonInput == null || buttonInput == '') return;
@@ -114,7 +118,7 @@ $(document).ready(function () {
     e.preventDefault();
     $(".saved-buttons").empty();
     $(".clear-button").empty();
-    $("todays-weather").empty();
+    $(".todays-weather").empty();
     window.localStorage.clear();
 
   })
