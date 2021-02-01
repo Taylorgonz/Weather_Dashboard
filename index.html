@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 <html lang="en-us">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="upgrade-insecure-requests"
-    />
     <title>Weather Dashboard</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-    />
+    <meta charset="utf-8" />
+    <!-- mobile responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- security meta -->
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
+    <!--  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"/>
+    <!-- css ling -->
     <link rel="stylesheet" href="Develop/css/style.css" />
+    <!-- jquery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
+
+  <!-- main body -->
   <body>
+    <!-- header -->
     <header class="hero is-primary is-bold">
       <h1 class="hero-body title">Weather Dashboard</h1>
     </header>
 
+    <!-- container -->
     <div class="container">
+      <!-- main column -->
       <div class="columns is-2 ">
 
         <div class="column is-one-third search-input">
         <form id='input-form'>
-            <!-- <button id="search" type="button" class="search button is-primary">
-              Search
-            </button>
-            <div class="column">
-              <input id="city-value" class="city-value input is-primary" type="text" placeholder="City"/>
-            </div> -->
           
         </form>
       
       <div class='column'>
         <div class="clear-button"></div>
       </div>
-      <div class ='column'>
+      <!-- <div class ='column'> -->
         <div class="saved-buttons"></div>
-      </div>
+      <!-- </div> -->
       </div>
       <!-- display weather -->
       <div class="column">

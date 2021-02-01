@@ -5,7 +5,7 @@
 Welcome to my weather Dashboard! you can enter your desired city name and find what your current weather conditions look like, along with the next 5 days forecast as well! 
 
 Below I have a screenshots of the application.
-![alt text](Assets/)
+![alt text](Develop/images/screenshot.png)
 
 ## Instructions
 
