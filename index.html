@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="upgrade-insecure-requests"
+    />
     <title>Weather Dashboard</title>
     <link
       rel="stylesheet"
@@ -16,32 +20,46 @@
       <h1 class="hero-body title">Weather Dashboard</h1>
     </header>
 
-
     <div class="container">
-      <div class="field ">
-        <div class="control columns search-input">
-          <button id="search" type="button" class="search button is-primary">Search</button>
-          <input id='city-value' class="city-value input is-primary is-one-fifth column" type="text" placeholder="City"/>
-          <input
-            id="state-value"
-            class="state-value input is-primary is-one-fifth column"
-            type="text"
-            placeholder="State"
-          />
-        </div>
+      <div class="columns is-centered">
+        <form>
+          <div class="column search-input">
+            <button id="search" type="button" class="search button is-primary">
+              Search
+            </button>
+            <div class="column">
+              <input
+                id="city-value"
+                class="city-value input is-primary"
+                type="text"
+                value=""
+                placeholder="City"
+              />
+              <input
+                id="state-value"
+                class="state-value input is-primary column"
+                type="text"
+                value=""
+                placeholder="State"
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class='columns is-centered'>
         <div class="clear-button"></div>
-        
-        <div class="saved-buttons ">
-          
-        </div>
+      </div>
+      <div class ='columns is-centered'>
+        <div class="saved-buttons"></div>
       </div>
 
       <!-- display weather -->
-      <div class="todays-weather is-primary card is-centered"></div>
+      <div class="todays-weather columns card is-primary is-centered"></div>
 
-      <div class="five-day-forecast"></div>
+      <div class="five-day-forecast columns is-1"></div>
     </div>
-    
+
     <script src="Develop/JavaScript/script.js"></script>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
   </body>
 </html>

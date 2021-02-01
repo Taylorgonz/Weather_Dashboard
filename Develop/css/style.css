@@ -9,9 +9,12 @@ body{
 
 }
 
-.saved-buttons {
+.save-buttons {
+    margin-bottom: 20px;
+}
+.saved-locations {
     text-align: left;
-    margin: 10px;
-    display: block;
+    margin: 5px;
+    display: inline;
 }
 
