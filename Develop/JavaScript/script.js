@@ -106,7 +106,7 @@ renderButtons();
         const date = $("<h2>").text(dayjs(response.list[i].dt_txt).format(`MMM, D`));
         const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temperature: " + Math.floor(response.list[i].main.temp));
-        const humidity = $("<p>").text("Humdity: " + response.list[i].main.humidity);
+        const humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
         // console.log(date)
         // console.log(icon)
         forecastDisplay.append(date, icon, temp, humidity);
