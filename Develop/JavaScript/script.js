@@ -10,7 +10,7 @@ let buttonArray = JSON.parse(localStorage["savedCities"] || "[]");
 let buttonInput = JSON.parse(localStorage.getItem("savedCities"));
 let id = 0;
 
-const fiveDayArr = [8, 16, 24, 32, 39];
+const fiveDayArr = [5, 13, 21, 29, 37];
 
 // start of jquery
 $(document).ready(function() {
@@ -74,24 +74,28 @@ renderButtons();
       let weatherDisplay = $('<div class=" current-weather card-content" >');
       // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const lat = response.coord.lat;
+      
       const lon = response.coord.lon;
+      console.log(lat.toString())
       const city = $("<h2>").text(response.name);
       const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
-      const temp = $("<p>").text(`Temperature: ${Math.floor(response.main.temp)}`);
-      const humidity = $("<p>").text("Humdity: " + response.main.humidity);
-      const wind = $("<p>").text("Wind Speed : " + response.wind.speed);
-      // const uvIndex= $.get("https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +"&lon="+ lon + "=&appid="+ myKey + "").then(function(response) {
-        // console.log(response)
-      // })
-      // console.log(temp);
-      weatherDisplay.append(city, icon, temp, humidity, wind);
+      const temp = $("<p>").text(`Temperature: ${Math.floor(response.main.temp)} degrees`);
+      const humidity = $("<p>").text("Humdity: " + response.main.humidity + "%");
+      const wind = $("<p>").text("Wind Speed : " + response.wind.speed + "mph");
+
+      $.get("https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +"&lon="+ lon + "&appid="+ myKey + "").then(function(response) { 
+      const uvIndex = $('<p>').text("UV Index: " + response.value);
+    
+    console.log(uvIndex)
+      weatherDisplay.append(city, icon, temp, humidity, wind, uvIndex);
       todaysWeather.prepend(weatherDisplay);
+    })
     });
     // -----------------
     // ajax call for 5 day forecast
     $.get(
       "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&units=imperial&appid=" + myKey +"").then(function (response) {
-      // console.log(response);
+      console.log(response);
       
       
 
