@@ -22,7 +22,7 @@ renderButtons();
   // console.log(inputForm)
 
   // -----------------------------------------------------------------
-  // initial function to display last searchs
+  // initial function to display last search
   function init() {
     if( inputForm[0].childElementCount === 0 ){
   inputForm.append('<button id="search" type="button" class="search button is-primary"> Search </button> <div class="column"> <input id="city-value" class="city-value input is-primary" type="text" placeholder="City"/> </div>')
@@ -100,7 +100,7 @@ renderButtons();
           let i = parseInt(item)
           // console.log(i)
         
-        let forecastDisplay = $('<div class="card five-day-card ">').attr("id",[index] );
+        let forecastDisplay = $('<div class="card five-day-card  ">').attr("id",[index] );
         const date = $("<h2>").text(dayjs(response.list[i].dt_txt).format(`MMM, D`));
         const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temperature: " + Math.floor(response.list[i].main.temp));

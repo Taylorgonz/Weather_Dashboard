@@ -1,4 +1,4 @@
-# Day-Planner
+# Weather_dashboard
 
 ## Let's Check the Weather!
 
