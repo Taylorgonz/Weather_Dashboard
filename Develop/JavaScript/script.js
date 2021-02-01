@@ -4,18 +4,33 @@ const myKey = "1f8d47fa1e0ef87f64e23560949b1f1c";
 let cityInput = $("#city-value");
 let stateInput = $("#state-value");
 let buttonArray =  JSON.parse(localStorage['savedCities'] || "[]");
+let buttonInput = JSON.parse(localStorage.getItem("savedCities"));
 let id = 0;
 
 // listening for search button slick
 
 
 // $(document).ready(function () {
-  
+  init();
+
   renderButtons();
 
-  search();
-  function search() {
-    $(".search").on( "click", function() {
+  
+// initial function to display last searchs
+  function init() {
+    if ( buttonArray !== null) {
+    let i = parseInt(buttonArray.length);
+    i --; 
+    cityInput= buttonInput[i].city;
+    stateInput = buttonInput[i].state;
+  
+    weatherCall();
+  }
+  }
+
+
+  // function search() {
+    $(".search").on( "click", function(e) {
       
       cityInput = cityInput.val();
       stateInput = stateInput.val();
@@ -45,7 +60,7 @@ let id = 0;
         $('form')[0].reset();
       
     });
-  }
+  // }
  
 
   // function for ajax call for current weather
@@ -54,55 +69,45 @@ let id = 0;
 
     
     $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&" + stateInput +"&units=imperial&appid=" +myKey +"").then(function (response) {
-      // console.log(response);
+      console.log(response);
 
 
-      let weatherDisplay = $('<div class="card-content">')
+      let weatherDisplay = $('<div class=" current-weather card-content" style="background-color: hsl(171, 100%, 41%); border-radius: 10px;">')
       // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
-     
+      const lat = response;
       const city = $('<h2>').text(response.name);
       const icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $('<p>').text("Temperature: " + Math.floor(response.main.temp));
       const humidity= $('<p>').text("Humdity: " + response.main.humidity);
       const wind = $('<p>').text("Wind Speed : " + response.wind.speed);
-      console.log(temp);
+      // const uvIndex= $.get("http://api.openweathermap.org/data/2.5/uvi?lat={lat}&lon=&appid="+ myKey + "")
+      // console.log(temp);
       weatherDisplay.append(city, icon, temp, humidity, wind)
-      $('.todays-weather').append(weatherDisplay);
-      $(document).ajaxSuccess(search());
+      $('.todays-weather').prepend(weatherDisplay);
+      // $(document).ajaxSuccess(search());
     });
 
     // ajax call for 5 day forecast
-    $.get("https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&" + stateInput +"&cnt=40&units=imperial&appid=" +myKey +"").then(function (response) {
+    $.get("https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&" + stateInput +"&units=imperial&appid=" +myKey +"").then(function (response) {
       // console.log(response);
 
 
 
 
-      for ( let i = 0; i < 40; i + 8) {
-        console.log(response.list[i]);
+      for ( let i = 0; i < 40; i + 8 ) {
+        // console.log(response.list[i]);
 
-        let forecastDisplay = $('<div class="card column is-2">').attr('id', [i]);
+        let forecastDisplay = $('<div class="card ">').attr('id', [i]);
         const date = $('<h2>').text(response.list[i].dt_txt);
         const icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon + "@2x.png")
         const temp = $('<p>').text("Temperature: " + Math.floor(response.list[i].main.temp));
         const humidity= $('<p>').text("Humdity: " + response.list[i].main.humidity);
-        console.log(date)
-        console.log(icon)
+        // console.log(date)
+        // console.log(icon)
         forecastDisplay.append(date, icon, temp, humidity);
         $('.five-day-forecast').append(forecastDisplay);
 
       }
-      // let weatherDisplay = $('<div class="card-content">')
-      // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
-     
-      // const city = $('<h2>').text(response.name);
-      // const icon = $('<img>').attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
-      // const temp = $('<p>').text("Temperature: " + tempF);
-      // const humidity= $('<p>').text("Humdity: " + response.main.humidity);
-      // const wind = $('<p>').text("Wind Speed : " + response.wind.speed);
-      // weatherDisplay.append(city, icon, temp, humidity, wind)
-      // $('.todays-weather').append(weatherDisplay);
-      // $(document).ajaxSuccess(search());
     });
   
   };
@@ -120,14 +125,15 @@ let id = 0;
     
     weatherCall();
     $('.todays-weather').empty();
+    $('.five-day-forecast').empty();
   });
 
+  // ---------------------------------------------------------------
 
   // render button function
   function renderButtons() {
     $(".saved-buttons").empty();
     $(".clear-button").empty();
-    let buttonInput = JSON.parse(localStorage.getItem("savedCities"));
     console.log(buttonInput);
     if (buttonInput == null || buttonInput == '') return;
     

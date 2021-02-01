@@ -18,3 +18,10 @@ body{
     display: inline;
 }
 
+.todays-weather {
+    color: white;
+    margin-bottom: 10px;
+    box-shadow:inset;
+
+}
+

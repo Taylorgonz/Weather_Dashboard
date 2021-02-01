@@ -21,9 +21,10 @@
     </header>
 
     <div class="container">
-      <div class="columns is-centered">
+      <div class="columns is-2 ">
+
+        <div class="column search-input">
         <form>
-          <div class="column search-input">
             <button id="search" type="button" class="search button is-primary">
               Search
             </button>
@@ -37,27 +38,31 @@
               />
               <input
                 id="state-value"
-                class="state-value input is-primary column"
+                class="state-value input is-primary"
                 type="text"
                 value=""
                 placeholder="State"
               />
             </div>
-          </div>
+          
         </form>
-      </div>
-      <div class='columns is-centered'>
+      
+      <div class='column'>
         <div class="clear-button"></div>
       </div>
-      <div class ='columns is-centered'>
+      <div class ='column'>
         <div class="saved-buttons"></div>
       </div>
-
+      </div>
       <!-- display weather -->
-      <div class="todays-weather columns card is-primary is-centered"></div>
+      <div class="column">
+      <div class="todays-weather column is-primary is-centered"></div>
 
-      <div class="five-day-forecast columns is-1"></div>
-    </div>
+      <div class="five-day-forecast columns"></div>
+      </div>
+      </div>
+
+  </div>
 
     <script src="Develop/JavaScript/script.js"></script>
     <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
