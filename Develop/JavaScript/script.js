@@ -161,7 +161,7 @@ renderButtons();
       button
         .attr("id", [i])
         .addClass("saved-locations button is-primary")
-        .text(buttonInput[i].city );\
+        .text(buttonInput[i].city );
         
       savedButtons.append(button);
     }
