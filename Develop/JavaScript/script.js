@@ -69,24 +69,22 @@ renderButtons();
   function weatherCall() {
     // current day weather ajax call
     $.get("https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&units=imperial&appid=" + myKey + "" ).then(function(response) {
-      console.log(response);
+      // console.log(response);
 
       let weatherDisplay = $('<div class=" current-weather card-content" >');
       // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const lat = response.coord.lat;
-      
       const lon = response.coord.lon;
-      console.log(lat.toString())
       const city = $("<h2>").text(response.name);
       const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $("<p>").text(`Temperature: ${Math.floor(response.main.temp)} degrees`);
       const humidity = $("<p>").text("Humdity: " + response.main.humidity + "%");
       const wind = $("<p>").text("Wind Speed : " + response.wind.speed + "mph");
-
+      // ---------
       $.get("https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +"&lon="+ lon + "&appid="+ myKey + "").then(function(response) { 
       const uvIndex = $('<p>').text("UV Index: " + response.value);
     
-    console.log(uvIndex)
+    // console.log(uvIndex)
       weatherDisplay.append(city, icon, temp, humidity, wind, uvIndex);
       todaysWeather.prepend(weatherDisplay);
     })
@@ -95,7 +93,7 @@ renderButtons();
     // ajax call for 5 day forecast
     $.get(
       "https://api.openweathermap.org/data/2.5/forecast?q=" + cityInput + "&units=imperial&appid=" + myKey +"").then(function (response) {
-      console.log(response);
+      // console.log(response);
       
       
 
@@ -143,7 +141,7 @@ renderButtons();
 
     savedButtons.empty();
     clearAllButton.empty();
-    console.log(buttonInput);
+    // console.log(buttonInput);
 
     if (buttonInput == null || buttonInput == "") return;
     else {
