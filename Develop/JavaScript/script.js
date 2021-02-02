@@ -75,7 +75,7 @@ renderButtons();
       // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const lat = response.coord.lat;
       const lon = response.coord.lon;
-      const city = $("<h2 class='is-size-2'>").text(response.name);
+      const city = $("<h2 class='is-size-2 has-text-weight-bold'>").text(response.name);
       const date = $("<h2 class='is-size-4'>").text(dayjs(response.dt_txt).format(`MMM, D`));
       const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $("<p>").text(`Temperature: ${Math.floor(response.main.temp)} degrees`);
@@ -83,9 +83,18 @@ renderButtons();
       const wind = $("<p>").text("Wind Speed : " + response.wind.speed + " mph");
       // ---------
       $.get("https://api.openweathermap.org/data/2.5/uvi?lat=" + lat +"&lon="+ lon + "&appid="+ myKey + "").then(function(response) { 
-      const uvIndex = $('<p>').text("UV Index: " + response.value);
-    
-    // console.log(uvIndex)
+      const uvIndex = $('<p class="has-text-weight-semibold">').text("UV Index: " + response.value);
+      if (response.value <= 2) {
+        uvIndex.attr('style', 'color: green')
+      } else if (response.value <=5 || response.value>=3 ) {
+        uvIndex.attr('style', 'color: yellow')
+      }else if (response.value <=7 || response.value>=6 ) {
+          uvIndex.attr('style', 'color: orange')
+      }else if (response.value <=10 || response.value>=8 ) {
+        uvIndex.attr('style', 'color: red')
+      }else {
+      uvIndex.attr('style', 'color: violet')
+      }
       weatherDisplay.append(date, city, icon, temp, humidity, wind, uvIndex);
       todaysWeather.prepend(weatherDisplay);
     })
@@ -104,7 +113,7 @@ renderButtons();
           // console.log(i)
         
         let forecastDisplay = $('<div class="card five-day-card  ">').attr("id",[index] );
-        const date = $("<h2>").text(dayjs(response.list[i].dt_txt).format(`MMM, D`));
+        const date = $("<h2 class='has-text-weight-semibold'>").text(dayjs(response.list[i].dt_txt).format(`MMM, D`));
         const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.list[i].weather[0].icon +"@2x.png");
         const temp = $("<p>").text("Temperature: " + Math.floor(response.list[i].main.temp));
         const humidity = $("<p>").text("Humidity: " + response.list[i].main.humidity + "%");
