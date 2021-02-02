@@ -75,7 +75,8 @@ renderButtons();
       // let tempF = Math.floor((response.main.temp - 273.15) *1.80 + 32);
       const lat = response.coord.lat;
       const lon = response.coord.lon;
-      const city = $("<h2>").text(response.name);
+      const city = $("<h2 class='is-size-2'>").text(response.name);
+      const date = $("<h2 class='is-size-4'>").text(dayjs(response.dt_txt).format(`MMM, D`));
       const icon = $("<img>").attr("src","http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png");
       const temp = $("<p>").text(`Temperature: ${Math.floor(response.main.temp)} degrees`);
       const humidity = $("<p>").text("Humdity: " + response.main.humidity + "%");
@@ -85,7 +86,7 @@ renderButtons();
       const uvIndex = $('<p>').text("UV Index: " + response.value);
     
     // console.log(uvIndex)
-      weatherDisplay.append(city, icon, temp, humidity, wind, uvIndex);
+      weatherDisplay.append(date, city, icon, temp, humidity, wind, uvIndex);
       todaysWeather.prepend(weatherDisplay);
     })
     });
