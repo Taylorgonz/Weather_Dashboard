@@ -9,9 +9,7 @@ const clearAllButton = $(".clear-button")
 let buttonArray = JSON.parse(localStorage["savedCities"] || "[]");
 let buttonInput = JSON.parse(localStorage.getItem("savedCities"));
 let id = 0;
-
 const fiveDayArr = [5, 13, 21, 29, 37];
-
 // start of jquery
 $(document).ready(function() {
 
@@ -47,22 +45,23 @@ renderButtons();
     // fiveDayForecast.empty()
     cityInput = $('#city-value')[0].value;
 
-    // console.log(cityInput);
-      // retrieving value from city and state inputs
-
       storedCityState = {
         city: cityInput,
       };
 
       if (cityInput !== ''){
-        todaysWeather.empty()
-    fiveDayForecast.empty()
+
+        
+      todaysWeather.empty()
+      fiveDayForecast.empty()
+
       buttonArray.push(storedCityState);
       localStorage.setItem("savedCities", JSON.stringify(buttonArray));
       location.reload();
-      renderButtons();
+
       }
-      console.log(buttonArray);
+      renderButtons();
+      console.log(buttonArray.city);
   });
 
 
@@ -167,8 +166,8 @@ renderButtons();
     for (let i = 0; i < buttonInput.length; i++) {
       let button = $("<button>");
       let buttonValue = button[0].outerText;
-      console.log(button);
-      console.log(buttonValue)
+      // console.log(button);
+      // console.log(buttonValue)
       // if(buttonValue)
       button
         .attr("id", [i])
