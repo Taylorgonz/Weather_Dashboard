@@ -43,8 +43,8 @@ renderButtons();
   // function search() {
   $("#search").on("click", function (e) {
     e.preventDefault();
-    todaysWeather.empty()
-    fiveDayForecast.empty()
+    // todaysWeather.empty()
+    // fiveDayForecast.empty()
     cityInput = $('#city-value')[0].value;
 
     // console.log(cityInput);
@@ -54,12 +54,15 @@ renderButtons();
         city: cityInput,
       };
 
-      if (cityInput !==""){
+      if (cityInput !== ''){
+        todaysWeather.empty()
+    fiveDayForecast.empty()
       buttonArray.push(storedCityState);
       localStorage.setItem("savedCities", JSON.stringify(buttonArray));
       location.reload();
       renderButtons();
       }
+      console.log(buttonArray);
   });
 
 
@@ -154,6 +157,7 @@ renderButtons();
     // console.log(buttonInput);
 
     if (buttonInput == null || buttonInput == "") return;
+
     else {
       let clearButton = $("<button>");
       clearButton.addClass("clear-button button is-danger").text("Clear Cities");
@@ -162,6 +166,10 @@ renderButtons();
 
     for (let i = 0; i < buttonInput.length; i++) {
       let button = $("<button>");
+      let buttonValue = button[0].outerText;
+      console.log(button);
+      console.log(buttonValue)
+      // if(buttonValue)
       button
         .attr("id", [i])
         .addClass("saved-locations button is-primary")
