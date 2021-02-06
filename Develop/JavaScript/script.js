@@ -60,6 +60,9 @@ renderButtons();
       location.reload();
 
       }
+      else {
+        return;
+      }
       renderButtons();
       console.log(buttonArray.city);
   });
