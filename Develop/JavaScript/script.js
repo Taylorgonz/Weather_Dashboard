@@ -19,6 +19,8 @@ renderButtons();
 
   // console.log(inputForm)
 
+  // const {city} = buttonArray.city;
+  //   console.log(city);
   // -----------------------------------------------------------------
   // initial function to display last search
   function init() {
@@ -54,10 +56,14 @@ renderButtons();
         
       todaysWeather.empty()
       fiveDayForecast.empty()
-
-      buttonArray.push(storedCityState);
+      // if(buttonArray.filter((elem) => elem.city !== cityInput)) {
+        buttonArray.push(storedCityState);
       localStorage.setItem("savedCities", JSON.stringify(buttonArray));
       location.reload();
+      // };
+      // buttonArray.push(storedCityState);
+      // localStorage.setItem("savedCities", JSON.stringify(buttonArray));
+      // location.reload();
 
       }
       else {
@@ -91,11 +97,11 @@ renderButtons();
       const uvIndex = $('<p class="has-text-weight-semibold">').text("UV Index: " + response.value);
       if (response.value <= 2) {
         uvIndex.attr('style', 'color: green')
-      } else if (response.value <=5 || response.value>=3 ) {
+      } else if (response.value <= 5 && response.value >= 2 ) {
         uvIndex.attr('style', 'color: yellow')
-      }else if (response.value <=7 || response.value>=6 ) {
+      }else if (response.value <= 7 && response.value>=5 ) {
           uvIndex.attr('style', 'color: orange')
-      }else if (response.value <=10 || response.value>=8 ) {
+      }else if (response.value <= 10 && response.value>=7 ) {
         uvIndex.attr('style', 'color: red')
       }else {
       uvIndex.attr('style', 'color: violet')
